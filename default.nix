@@ -18,7 +18,7 @@
       description = "Start listening for build triggers";
       serviceConfig = {
         Type = "simple";
-        ExecStart = ''${import ./bbhooks.nix}/bbhooks.py'';         
+        ExecStart = ''${python39}/bin/python3 ${import ./bbhooks.nix}/bbhooks.py'';         
         ExecStop = ''${pkgs.s6-linux-utils}/bin/kill -2 $MAINPID'';
       };
    };

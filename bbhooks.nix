@@ -1,22 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub }:
+with import <nixpkgs> {};
 
-buildPythonPackage rec {
-  pname = "bbhooks";
-  version = "0.0.1";
+( let
+    bbhooks = python39.pkgs.buildPythonPackage rec {
+      pname = "bbhooks";
+      version = "0.0.1";
 
-  src = fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "rpgwaiter";
         repo = "basedbuildhooks";
-        rev = ver;
+        rev = version;
         sha256 = "";
+      };
+
+      doCheck = false;
+
+      meta = {
+        homepage = "https://github.com/rpgwaiter/basedbuildhooks";
+        description = "Automatic NixOS builds via webhooks";
+        license = licenses.gpl3Plus;
+      };
     };
 
-  doCheck = false;
-
-  meta = with lib; {
-    homepage = "https://github.com/rpgwaiter/basedbuildhooks";
-    description = "Automatic NixOS builds via webhooks";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rpgwaiter ];
-  };
-}
+  in python39.withPackages (ps: [ps.flask bbhooks])
+).env
