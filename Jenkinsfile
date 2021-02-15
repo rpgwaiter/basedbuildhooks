@@ -7,9 +7,11 @@ pipeline {
 
     stages {
         stage("Build") {
-            stage("nix-build") {
-                steps {
-                    sh 'nix-build'
+            stages {
+                stage("nix-build") {
+                    steps {
+                        sh 'nix-build'
+                    }
                 }
             }
         }
