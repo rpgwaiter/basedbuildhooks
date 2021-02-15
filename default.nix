@@ -16,6 +16,10 @@
       wantedBy = [ "multi-user.target" ]; 
       after = [ "network.target" ];
       description = "Start listening for build triggers";
+      environment = {
+          BBHOOKS_PORT = "33363";
+          BBHOOKS_PATH = "/bbhooks";
+      };
       serviceConfig = {
         Type = "simple";
         ExecStart = ''${python39}/bin/python3 ${import ./bbhooks.nix}/bbhooks.py'';         
