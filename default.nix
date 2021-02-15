@@ -25,7 +25,7 @@
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = ''${python39}/bin/python ${import ./bbhooks.nix}/bbhooks.py'';         
+        ExecStart = ''${pkgs.python39}/bin/python ${import ./bbhooks.nix}/bbhooks.py'';         
         ExecStop = ''${pkgs.s6-linux-utils}/bin/kill -2 $MAINPID'';
       };
    };
